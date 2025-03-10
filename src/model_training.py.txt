@@ -1,0 +1,35 @@
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+def train_model(X_train, y_train):
+    # Initialize Logistic Regression model
+    model = LogisticRegression()
+    
+    # Train the model
+    model.fit(X_train, y_train)
+    
+    return model
+
+def evaluate_model(model, X_test, y_test):
+    # Make predictions
+    y_pred = model.predict(X_test)
+    
+    # Evaluate accuracy
+    accuracy = accuracy_score(y_test, y_pred)
+    print(f"Accuracy: {accuracy}")
+    
+    # Confusion matrix
+    cm = confusion_matrix(y_test, y_pred)
+    print("Confusion Matrix:")
+    print(cm)
+    
+    # Classification report
+    print("Classification Report:")
+    print(classification_report(y_test, y_pred))
+    
+    # Plot Confusion Matrix using Seaborn
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
+    plt.title('Confusion Matrix')
+    plt.show()
